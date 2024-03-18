@@ -1,4 +1,4 @@
-public class ScanRepository {
+public class ScanRepository implements IScanRepository {
     private ArrayList<Scan> scans;
 
     public ScanRepository() {
