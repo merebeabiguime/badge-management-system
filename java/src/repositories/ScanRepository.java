@@ -1,3 +1,11 @@
+package repositories;
+
+import java.util.ArrayList;
+import java.util.Date;
+
+import entities.Scan;
+import interfaces.IScanRepository;
+
 public class ScanRepository implements IScanRepository {
     private ArrayList<Scan> scans;
 

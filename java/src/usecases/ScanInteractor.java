@@ -1,4 +1,12 @@
-public class ScanInteractor implements IScan {
+package usecases;
+
+import java.util.ArrayList;
+
+import entities.Scan;
+import interfaces.IScanInteractor;
+import interfaces.IScanRepository;
+
+public class ScanInteractor implements IScanInteractor {
     private IScanRepository scanRepository;
 
     public ScanInteractor(IScanRepository scanRepository) {

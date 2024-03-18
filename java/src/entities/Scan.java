@@ -1,4 +1,6 @@
-import java.sql.Date;
+package entities;
+
+import java.util.Date;
 
 public class Scan {
 

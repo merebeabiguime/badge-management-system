@@ -1,7 +1,11 @@
-import java.util.ArrayList;
+package interfaces;
 
-public interface IScanInteractor {
+import java.util.ArrayList;
+import entities.Scan;
+
+public interface IScanRepository {
     public ArrayList<Scan> getAllScans();
 
     public Scan getScan(int id);
+
 }
