@@ -1,13 +1,9 @@
 package interfaces;
 
-import java.util.ArrayList;
-
 import dtos.ScanDto;
-import dtos.ScanListDto;
-import entities.Scan;
 
 public interface IScanController {
-    public ScanListDto onGetAllScans();
+    public String onGetAllScans(String jsonInput);
 
     public ScanDto onGetScan(int id);
 

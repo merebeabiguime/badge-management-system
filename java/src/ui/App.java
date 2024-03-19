@@ -8,8 +8,8 @@ public class App {
     public static void main(String[] args) throws Exception {
         ScanRepository scanRepository = new ScanRepository();
         ScanInteractor scanInteractor = new ScanInteractor(scanRepository);
-        ScanController scanController = new ScanController(scanInteractor, 0);
+        ScanController scanController = new ScanController(scanInteractor);
 
-        System.out.println("Premier scan : \n" + scanController.onGetScan(1).getScan());
+        System.out.println("Premier scan : \n" + scanController.onGetAllScans("{\"userRole\":1}"));
     }
 }

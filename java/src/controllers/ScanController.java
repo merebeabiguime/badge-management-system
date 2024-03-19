@@ -2,27 +2,38 @@ package controllers;
 
 import java.util.ArrayList;
 
+import dtos.GetAllScansRequestDto;
 import dtos.ScanDto;
 import dtos.ScanListDto;
 import entities.Scan;
 import interfaces.IScanController;
 import interfaces.IScanInteractor;
 import mappers.*;
+import responses.ControllerResponse;
 
 public class ScanController implements IScanController {
     private IScanInteractor scanInteractor;
 
-    public ScanController(IScanInteractor scanInteractor, int userRole) {
-        if (userRole != 1) {
-            throw new Error("Vous n'avez pas le droit d'accéder à cette ressource");
-        }
+    public ScanController(IScanInteractor scanInteractor) {
         this.scanInteractor = scanInteractor;
 
     }
 
-    public ScanListDto onGetAllScans() {
-        ArrayList<Scan> scans = scanInteractor.getAllScans();
-        return ScanMapper.fromScanListToScanListDto(scans);
+    public String onGetAllScans(String jsonInput) {
+        try {
+            GetAllScansRequestDto request = ScanMapper.fromJsonToGetAllScansRequestDto(jsonInput);
+
+            ArrayList<Scan> scans = scanInteractor.getAllScans(request);
+
+            ControllerResponse response = new ControllerResponse("Success", "", "",
+                    ScanMapper.fromScanListToJsonResponseDto(scans));
+            return response.toJson();
+
+        } catch (Exception e) {
+            ControllerResponse response = new ControllerResponse("Error", "", e.getMessage(), "");
+            return response.toJson();
+        }
+
     }
 
     public ScanDto onGetScan(int id) {

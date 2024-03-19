@@ -2,6 +2,7 @@ package usecases;
 
 import java.util.ArrayList;
 
+import dtos.GetAllScansRequestDto;
 import entities.Scan;
 import interfaces.IScanInteractor;
 import interfaces.IScanRepository;
@@ -13,12 +14,13 @@ public class ScanInteractor implements IScanInteractor {
         this.scanRepository = scanRepository;
     }
 
-    @Override
-    public ArrayList<Scan> getAllScans() {
+    public ArrayList<Scan> getAllScans(GetAllScansRequestDto getAllScansRequestDto) {
+        if (getAllScansRequestDto.getUserRole() != 1) {
+            return new ArrayList<>();
+        }
         return scanRepository.getAllScans();
     }
 
-    @Override
     public Scan getScan(int id) {
         return scanRepository.getScan(id);
     }
