@@ -10,6 +10,6 @@ public class App {
         ScanInteractor scanInteractor = new ScanInteractor(scanRepository);
         ScanController scanController = new ScanController(scanInteractor);
 
-        System.out.println("Premier scan : \n" + scanController.onGetAllScans("{\"userRole\":1}"));
+        System.out.println("Premier scan : \n" + scanController.onGetScan("{\"id\":10, \"userRole\":1}"));
     }
 }

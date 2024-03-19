@@ -3,12 +3,11 @@ package controllers;
 import java.util.ArrayList;
 
 import dtos.GetAllScansRequestDto;
-import dtos.ScanDto;
-import dtos.ScanListDto;
+import dtos.GetScanRequestDto;
 import entities.Scan;
 import interfaces.IScanController;
 import interfaces.IScanInteractor;
-import mappers.*;
+import mappers.ScanMapper;
 import responses.ControllerResponse;
 
 public class ScanController implements IScanController {
@@ -20,28 +19,38 @@ public class ScanController implements IScanController {
     }
 
     public String onGetAllScans(String jsonInput) {
+        ControllerResponse response;
         try {
             GetAllScansRequestDto request = ScanMapper.fromJsonToGetAllScansRequestDto(jsonInput);
 
             ArrayList<Scan> scans = scanInteractor.getAllScans(request);
 
-            ControllerResponse response = new ControllerResponse("Success", "", "",
+            response = new ControllerResponse("Success", "", "",
                     ScanMapper.fromScanListToJsonResponseDto(scans));
             return response.toJson();
 
-        } catch (Exception e) {
-            ControllerResponse response = new ControllerResponse("Error", "", e.getMessage(), "");
+        } catch (Throwable t) {
+            response = new ControllerResponse("Error", "", t.getMessage(), "");
             return response.toJson();
         }
 
     }
 
-    public ScanDto onGetScan(int id) {
-        Scan scan = scanInteractor.getScan(id);
-        if (scan == null) {
-            throw new Error("Impossible de trouver le scan");
+    public String onGetScan(String jsonInput) {
+        ControllerResponse response;
+        try {
+            GetScanRequestDto request = ScanMapper.fromJsonToGetScanRequestDto(jsonInput);
+
+            Scan scan = scanInteractor.getScan(request);
+
+            response = new ControllerResponse("Success", "", "",
+                    ScanMapper.fromScanToJsonResponseDto(scan));
+            return response.toJson();
+
+        } catch (Throwable t) {
+            response = new ControllerResponse("Error", "", t.getMessage(), "");
+            return response.toJson();
         }
-        return ScanMapper.fromScanToScanDto(scan);
     }
 
 }
