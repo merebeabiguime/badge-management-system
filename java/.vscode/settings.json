@@ -2,6 +2,11 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/**/*.jar",
+        "c:\\Users\\mereb\\Downloads\\jackson-core-2.9.9-javadoc.jar",
+        "c:\\Users\\mereb\\Downloads\\jackson-core-2.9.9.jar",
+        "c:\\Users\\mereb\\Downloads\\jackson-core-2.9.9-sources.jar",
+        "c:\\Users\\mereb\\Downloads\\jackson-databind-2.9.9.3.jar",
+        "c:\\Users\\mereb\\Downloads\\jackson-annotations-2.9.9.jar"
     ]
 }

@@ -2,35 +2,55 @@ package controllers;
 
 import java.util.ArrayList;
 
-import dtos.ScanDto;
-import dtos.ScanListDto;
+import dtos.GetAllScansRequestDto;
+import dtos.GetScanRequestDto;
 import entities.Scan;
 import interfaces.IScanController;
 import interfaces.IScanInteractor;
-import mappers.*;
+import mappers.ScanMapper;
+import responses.ControllerResponse;
 
 public class ScanController implements IScanController {
     private IScanInteractor scanInteractor;
 
-    public ScanController(IScanInteractor scanInteractor, int userRole) {
-        if (userRole != 1) {
-            throw new Error("Vous n'avez pas le droit d'accéder à cette ressource");
-        }
+    public ScanController(IScanInteractor scanInteractor) {
         this.scanInteractor = scanInteractor;
 
     }
 
-    public ScanListDto onGetAllScans() {
-        ArrayList<Scan> scans = scanInteractor.getAllScans();
-        return ScanMapper.fromScanListToScanListDto(scans);
+    public String onGetAllScans(String jsonInput) {
+        ControllerResponse response;
+        try {
+            GetAllScansRequestDto request = ScanMapper.fromJsonToGetAllScansRequestDto(jsonInput);
+
+            ArrayList<Scan> scans = scanInteractor.getAllScans(request);
+
+            response = new ControllerResponse("Success", "", "",
+                    ScanMapper.fromScanListToJsonResponseDto(scans));
+            return response.toJson();
+
+        } catch (Throwable t) {
+            response = new ControllerResponse("Error", "", t.getMessage(), "");
+            return response.toJson();
+        }
+
     }
 
-    public ScanDto onGetScan(int id) {
-        Scan scan = scanInteractor.getScan(id);
-        if (scan == null) {
-            throw new Error("Impossible de trouver le scan");
+    public String onGetScan(String jsonInput) {
+        ControllerResponse response;
+        try {
+            GetScanRequestDto request = ScanMapper.fromJsonToGetScanRequestDto(jsonInput);
+
+            Scan scan = scanInteractor.getScan(request);
+
+            response = new ControllerResponse("Success", "", "",
+                    ScanMapper.fromScanToJsonResponseDto(scan));
+            return response.toJson();
+
+        } catch (Throwable t) {
+            response = new ControllerResponse("Error", "", t.getMessage(), "");
+            return response.toJson();
         }
-        return ScanMapper.fromScanToScanDto(scan);
     }
 
 }
