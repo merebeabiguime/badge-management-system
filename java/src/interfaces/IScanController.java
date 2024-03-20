@@ -5,4 +5,6 @@ public interface IScanController {
 
     public String onGetScan(String jsonInput);
 
+    public String onScanBadge(String jsonInput);
+
 }

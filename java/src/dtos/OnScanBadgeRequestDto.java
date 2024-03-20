@@ -1,9 +1,9 @@
 package dtos;
 
-public class OnScanBadgeDto {
+public class OnScanBadgeRequestDto {
     private Integer badgeId;
 
-    public OnScanBadgeDto() {
+    public OnScanBadgeRequestDto() {
         this.badgeId = null;
     }
 

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dtos.GetAllScansRequestDto;
 import dtos.GetScanRequestDto;
-import dtos.OnScanBadgeDto;
+import dtos.OnScanBadgeRequestDto;
 import entities.Scan;
 
 public class ScanMapper {
@@ -77,8 +77,8 @@ public class ScanMapper {
         }
     }
 
-    public static OnScanBadgeDto fromJsonToOnScanBadgeDto(String json) {
-        OnScanBadgeDto onScanBadgeDto = new OnScanBadgeDto();
+    public static OnScanBadgeRequestDto fromJsonToOnScanBadgeDto(String json) {
+        OnScanBadgeRequestDto onScanBadgeDto = new OnScanBadgeRequestDto();
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 

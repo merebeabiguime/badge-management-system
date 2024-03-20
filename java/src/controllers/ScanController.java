@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import dtos.GetAllScansRequestDto;
 import dtos.GetScanRequestDto;
-import dtos.OnScanBadgeDto;
+import dtos.OnScanBadgeRequestDto;
 import entities.Scan;
 import interfaces.IScanController;
 import interfaces.IScanInteractor;
@@ -57,7 +57,7 @@ public class ScanController implements IScanController {
     public String onScanBadge(String jsonInput) {
         ControllerResponse response;
         try {
-            OnScanBadgeDto request = ScanMapper.fromJsonToOnScanBadgeDto(jsonInput);
+            OnScanBadgeRequestDto request = ScanMapper.fromJsonToOnScanBadgeDto(jsonInput);
 
             String interactorMessage = scanInteractor.scanBadge(request);
 
