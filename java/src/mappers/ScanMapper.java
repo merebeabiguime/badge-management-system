@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dtos.GetAllScansRequestDto;
 import dtos.GetScanRequestDto;
+import dtos.OnScanBadgeDto;
 import entities.Scan;
 
 public class ScanMapper {
@@ -71,6 +72,26 @@ public class ScanMapper {
         try {
             return mapper.writeValueAsString(scan);
         } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static OnScanBadgeDto fromJsonToOnScanBadgeDto(String json) {
+        OnScanBadgeDto onScanBadgeDto = new OnScanBadgeDto();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        try {
+            JsonNode jsonNode = mapper.readTree(json);
+            JsonNode badgeIdNode = jsonNode.get("badgeId");
+
+            if (badgeIdNode != null && badgeIdNode.isNumber()) {
+                int badgeId = badgeIdNode.asInt();
+                onScanBadgeDto.setBadgeId(badgeId);
+            }
+            return onScanBadgeDto;
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
