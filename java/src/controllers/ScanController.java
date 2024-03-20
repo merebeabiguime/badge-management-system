@@ -24,7 +24,7 @@ public class ScanController implements IScanController {
         try {
             GetAllScansRequestDto request = ScanMapper.fromJsonToGetAllScansRequestDto(jsonInput);
 
-            ArrayList<Scan> scans = scanInteractor.getAllScans(request);
+            ArrayList<Scan> scans = scanInteractor.getAllScans(request.getUserRole());
 
             response = new ControllerResponse("Success", "", "",
                     ScanMapper.fromScanListToJsonResponseDto(scans));
@@ -42,7 +42,7 @@ public class ScanController implements IScanController {
         try {
             GetScanRequestDto request = ScanMapper.fromJsonToGetScanRequestDto(jsonInput);
 
-            Scan scan = scanInteractor.getScan(request);
+            Scan scan = scanInteractor.getScan(request.getUserRole(), request.getId());
 
             response = new ControllerResponse("Success", "", "",
                     ScanMapper.fromScanToJsonResponseDto(scan));
@@ -59,10 +59,10 @@ public class ScanController implements IScanController {
         try {
             OnScanBadgeRequestDto request = ScanMapper.fromJsonToOnScanBadgeDto(jsonInput);
 
-            String interactorMessage = scanInteractor.scanBadge(request);
+            Scan scan = scanInteractor.scanBadge(request.getBadgeId());
 
-            response = new ControllerResponse("Success", "", interactorMessage,
-                    "");
+            response = new ControllerResponse("Success", "", "",
+                    ScanMapper.fromScanToJsonResponseDto(scan));
             return response.toJson();
 
         } catch (Throwable t) {

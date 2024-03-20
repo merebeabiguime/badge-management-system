@@ -2,15 +2,12 @@ package interfaces;
 
 import java.util.ArrayList;
 
-import dtos.GetAllScansRequestDto;
-import dtos.GetScanRequestDto;
-import dtos.OnScanBadgeDto;
 import entities.Scan;
 
 public interface IScanInteractor {
-    public ArrayList<Scan> getAllScans(GetAllScansRequestDto getAllScansRequestDto);
+    public ArrayList<Scan> getAllScans(int userRole);
 
-    public Scan getScan(GetScanRequestDto getScanRequestDto);
+    public Scan getScan(int userRole, int userId);
 
-    public String scanBadge(OnScanBadgeDto onScanBadgeDto);
+    public Scan scanBadge(int userId);
 }

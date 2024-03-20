@@ -8,4 +8,6 @@ public interface IScanRepository {
 
     public Scan getScan(int id);
 
+    public Scan registerScan(int id);
+
 }

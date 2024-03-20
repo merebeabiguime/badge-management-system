@@ -2,10 +2,6 @@ package usecases;
 
 import java.util.ArrayList;
 
-import dtos.GetAllScansRequestDto;
-import dtos.GetScanRequestDto;
-import dtos.OnScanBadgeRequestDto;
-import dtos.RegisterScanResponseDto;
 import entities.Scan;
 import interfaces.IScanInteractor;
 import interfaces.IScanRepository;
@@ -17,29 +13,33 @@ public class ScanInteractor implements IScanInteractor {
         this.scanRepository = scanRepository;
     }
 
-    public ArrayList<Scan> getAllScans(GetAllScansRequestDto getAllScansRequestDto) {
-        if (getAllScansRequestDto.getUserRole() != 1) {
+    public ArrayList<Scan> getAllScans(int userRole) {
+        if (userRole != 1) {
             throw new Error("Unauthorized role");
         }
         return scanRepository.getAllScans();
     }
 
-    public Scan getScan(GetScanRequestDto getScanRequestDto) {
-        if (getScanRequestDto.getUserRole() != 1) {
+    public Scan getScan(int userRole, int userId) {
+        if (userRole != 1) {
             throw new Error("Unauthorized role");
         }
-        Scan response = scanRepository.getScan(getScanRequestDto.getId());
+        Scan response = scanRepository.getScan(userId);
         if (response == null) {
             throw new Error("Scan not found");
         }
         return response;
     }
 
-    public String scanBadge(OnScanBadgeRequestDto onScanBadgeDto) {
-        RegisterScanResponseDto response = scanRepository.registerScan(onScanBadgeDto.getBadgeId());
+    public Scan scanBadge(int userId) {
+        Scan response = scanRepository.registerScan(userId);
         if (response.getUserId() == null) {
             throw new Error("This badge has not been registered yet");
         }
+        if (response.getAccessApproved() == false) {
+            throw new Error("You are not authorized to scan this badge at this time");
+        }
+        return response;
     }
 
 }

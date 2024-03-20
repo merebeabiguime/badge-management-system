@@ -6,16 +6,16 @@ public class Scan {
 
     private int id;
     private Date date;
-    private String heure;
-    private int id_utilisateur;
-    private boolean tentative_acces;
+    private String hour;
+    private Integer userId;
+    private boolean accessApproved;
 
-    public Scan(int id, Date date, String heure, int id_utilisateur, boolean tentative_acces) {
+    public Scan(int id, Date date, String hour, Integer userId, boolean accessApproved) {
         this.id = id;
         this.date = date;
-        this.heure = heure;
-        this.id_utilisateur = id_utilisateur;
-        this.tentative_acces = tentative_acces;
+        this.hour = hour;
+        this.userId = userId;
+        this.accessApproved = accessApproved;
     }
 
     public int getId() {
@@ -34,28 +34,28 @@ public class Scan {
         this.date = date;
     }
 
-    public String getHeure() {
-        return heure;
+    public String getHour() {
+        return hour;
     }
 
-    public void setHeure(String heure) {
-        this.heure = heure;
+    public void setHour(String hour) {
+        this.hour = hour;
     }
 
-    public int getId_utilisateur() {
-        return id_utilisateur;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setId_utilisateur(int id_utilisateur) {
-        this.id_utilisateur = id_utilisateur;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public boolean getTentative_acces() {
-        return tentative_acces;
+    public boolean getAccessApproved() {
+        return accessApproved;
     }
 
-    public void setTentative_acces(boolean tentative_acces) {
-        this.tentative_acces = tentative_acces;
+    public void setAccessApproved(boolean accessApproved) {
+        this.accessApproved = accessApproved;
     }
 
 }

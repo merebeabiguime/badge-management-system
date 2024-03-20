@@ -27,4 +27,8 @@ public class ScanRepository implements IScanRepository {
         return null;
     }
 
+    public Scan registerScan(int id) {
+        return this.getScan(1);
+    }
+
 }
