@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dtos.GetAllScansRequestDto;
 import dtos.GetScanRequestDto;
 import dtos.OnScanBadgeRequestDto;
+import dtos.WaitForBadgeChangeRequestDto;
 import entities.Scan;
 
 public class ScanMapper {
@@ -91,6 +92,26 @@ public class ScanMapper {
                 onScanBadgeDto.setBadgeId(badgeId);
             }
             return onScanBadgeDto;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static WaitForBadgeChangeRequestDto fromJsonToWaitForBadgeChangeDto(String json) {
+        WaitForBadgeChangeRequestDto waitForBadgeChangeRequestDto = new WaitForBadgeChangeRequestDto();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        try {
+            JsonNode jsonNode = mapper.readTree(json);
+            JsonNode timeoutNode = jsonNode.get("timeout");
+
+            if (timeoutNode != null && timeoutNode.isLong()) {
+                long timeout = timeoutNode.asLong();
+                waitForBadgeChangeRequestDto.setTimeout(timeout);
+            }
+            return waitForBadgeChangeRequestDto;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

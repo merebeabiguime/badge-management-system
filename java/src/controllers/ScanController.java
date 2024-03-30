@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dtos.GetAllScansRequestDto;
 import dtos.GetScanRequestDto;
 import dtos.OnScanBadgeRequestDto;
+import dtos.WaitForBadgeChangeRequestDto;
 import entities.Scan;
 import interfaces.IScanController;
 import interfaces.IScanInteractor;
@@ -13,6 +14,8 @@ import responses.ControllerResponse;
 
 public class ScanController implements IScanController {
     private IScanInteractor scanInteractor;
+    private Integer badgeId;
+    private ControllerResponse response;
 
     public ScanController(IScanInteractor scanInteractor) {
         this.scanInteractor = scanInteractor;
@@ -20,7 +23,6 @@ public class ScanController implements IScanController {
     }
 
     public String onGetAllScans(String jsonInput) {
-        ControllerResponse response;
         try {
             GetAllScansRequestDto request = ScanMapper.fromJsonToGetAllScansRequestDto(jsonInput);
 
@@ -38,7 +40,6 @@ public class ScanController implements IScanController {
     }
 
     public String onGetScan(String jsonInput) {
-        ControllerResponse response;
         try {
             GetScanRequestDto request = ScanMapper.fromJsonToGetScanRequestDto(jsonInput);
 
@@ -55,9 +56,11 @@ public class ScanController implements IScanController {
     }
 
     public String onScanBadge(String jsonInput) {
-        ControllerResponse response;
         try {
             OnScanBadgeRequestDto request = ScanMapper.fromJsonToOnScanBadgeDto(jsonInput);
+
+            this.badgeId = request.getBadgeId();
+            notify();
 
             Scan scan = scanInteractor.scanBadge(request.getBadgeId());
 
@@ -71,4 +74,19 @@ public class ScanController implements IScanController {
         }
     }
 
+    public synchronized String waitForBadgeChange(String jsonInput) {
+        try {
+            WaitForBadgeChangeRequestDto request = ScanMapper.fromJsonToWaitForBadgeChangeDto(jsonInput);
+            wait(request.getTimeout());
+        } catch (InterruptedException e) {
+            response = new ControllerResponse("Error", "", e.getMessage(), "");
+            return response.toJson();
+        }
+        if (this.badgeId == null) {
+            response = new ControllerResponse("Error", "", "No badge scanned", "");
+            return response.toJson();
+        }
+        response = new ControllerResponse("Success", "", "", "{\"badgeId\":" + this.badgeId + "}");
+        return response.toJson();
+    }
 }
