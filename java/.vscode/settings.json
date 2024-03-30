@@ -7,6 +7,8 @@
         "c:\\Users\\mereb\\Downloads\\jackson-core-2.9.9.jar",
         "c:\\Users\\mereb\\Downloads\\jackson-core-2.9.9-sources.jar",
         "c:\\Users\\mereb\\Downloads\\jackson-databind-2.9.9.3.jar",
-        "c:\\Users\\mereb\\Downloads\\jackson-annotations-2.9.9.jar"
+        "c:\\Users\\mereb\\Downloads\\jackson-annotations-2.9.9.jar",
+        "c:\\Users\\mereb\\Downloads\\java-dotenv-5.2.2.jar",
+        "c:\\Users\\mereb\\Downloads\\dotenv-java-3.2.0.jar"
     ]
 }

@@ -1,16 +1,16 @@
 package entities;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Scan {
 
     private int id;
-    private Date date;
+    private LocalDateTime date;
     private String hour;
     private Integer userId;
     private boolean accessApproved;
 
-    public Scan(int id, Date date, String hour, Integer userId, boolean accessApproved) {
+    public Scan(int id, LocalDateTime date, String hour, Integer userId, boolean accessApproved) {
         this.id = id;
         this.date = date;
         this.hour = hour;
@@ -26,11 +26,11 @@ public class Scan {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

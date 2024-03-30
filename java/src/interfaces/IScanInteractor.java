@@ -9,5 +9,5 @@ public interface IScanInteractor {
 
     public Scan getScan(int userRole, int userId);
 
-    public Scan scanBadge(int userId);
+    public Scan scanBadge(int badgeId);
 }

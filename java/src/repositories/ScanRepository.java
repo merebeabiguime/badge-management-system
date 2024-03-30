@@ -1,7 +1,7 @@
 package repositories;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 import entities.Scan;
 import interfaces.IScanRepository;
@@ -11,7 +11,7 @@ public class ScanRepository implements IScanRepository {
 
     public ScanRepository() {
         scans = new ArrayList<Scan>();
-        scans.add(new Scan(1, new Date(1999, 12, 31), "12:00:00", 1, false));
+        scans.add(new Scan(1, LocalDateTime.now(), "12:00:00", 1, false));
     }
 
     public ArrayList<Scan> getAllScans() {

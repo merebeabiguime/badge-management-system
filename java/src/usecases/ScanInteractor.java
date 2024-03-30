@@ -31,8 +31,8 @@ public class ScanInteractor implements IScanInteractor {
         return response;
     }
 
-    public Scan scanBadge(int userId) {
-        Scan response = scanRepository.registerScan(userId);
+    public Scan scanBadge(int badgeId) {
+        Scan response = scanRepository.registerScan(badgeId);
         if (response.getUserId() == null) {
             throw new Error("This badge has not been registered yet");
         }
